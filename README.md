@@ -1,6 +1,6 @@
 # Flutter-Resizable-Widget
 A widget that allow user resize the widget with drag
-### note: this widget Uses Getx
+### Note: this widget uses Getx
 
 
 # Example
