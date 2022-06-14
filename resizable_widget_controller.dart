@@ -15,10 +15,10 @@ class ResizableWidgetController extends GetxController {
 
   @override
   void onInit() {
-    double newTop = initialPosition.dy - height / 2;
-    double newBottom = areaHeight - height - newTop;
-    double newLeft = initialPosition.dx - (width / 2);
-    double newRight = (areaWidth - width) - newLeft;
+    final double newTop = initialPosition.dy - height / 2;
+    final double newBottom = areaHeight - height - newTop;
+    final double newLeft = initialPosition.dx - (width / 2);
+    final double newRight = (areaWidth - width) - newLeft;
 
     // init top&bottom
     if (newTop < 0) {
@@ -115,31 +115,31 @@ class ResizableWidgetController extends GetxController {
     height = areaHeight - (top + bottom);
   }
 
-  void onTopLeftDrag(dx, dy) {
-    var mid = (dx + dy) / 2;
+  void onTopLeftDrag(num dx, num dy) {
+    final mid = (dx + dy) / 2;
     setSize(
       newTop: top + mid,
       newLeft: left + mid,
     );
   }
 
-  void onTopCenterDrag(dx, dy) {
+  void onTopCenterDrag(num dx, num dy) {
     setSize(newTop: top + dy);
   }
 
-  void onTopRightDrag(dx, dy) {
-    var mid = (dx + (dy * -1)) / 2;
+  void onTopRightDrag(num dx, num dy) {
+    final mid = (dx + (dy * -1)) / 2;
     setSize(
       newTop: top - mid,
       newRight: right - mid,
     );
   }
 
-  void onCenterLeftDrag(dx, dy) {
+  void onCenterLeftDrag(num dx, num dy) {
     setSize(newLeft: left + dx);
   }
 
-  void onCenterDrag(dx, dy) {
+  void onCenterDrag(num dx, num dy) {
     setSize(
       newTop: top + dy,
       newLeft: left + dx,
@@ -148,22 +148,22 @@ class ResizableWidgetController extends GetxController {
     );
   }
 
-  void onCenterRightDrag(dx, dy) {
+  void onCenterRightDrag(num dx, num dy) {
     setSize(newRight: right - dx);
   }
 
-  void onBottomLeftDrag(dx, dy) {
-    var mid = ((dx * -1) + dy) / 2;
+  void onBottomLeftDrag(num dx, num dy) {
+    final mid = ((dx * -1) + dy) / 2;
     setSize(newBottom: bottom - mid, newLeft: left - mid);
     update();
   }
 
-  void onBottomCenterDrag(dx, dy) {
+  void onBottomCenterDrag(num dx, num dy) {
     setSize(newBottom: bottom - dy);
   }
 
-  void onBottomRightDrag(dx, dy) {
-    var mid = (dx + dy) / 2;
+  void onBottomRightDrag(num dx, num dy) {
+    final mid = (dx + dy) / 2;
 
     setSize(
       newRight: right - mid,

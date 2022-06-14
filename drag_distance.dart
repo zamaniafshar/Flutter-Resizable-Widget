@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class DragDistance extends StatefulWidget {
   const DragDistance({
-    Key? key,
+    super.key,
     required this.onDrag,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Function(double dx, double dy) onDrag;
   final Widget child;
@@ -25,8 +25,8 @@ class _DragDistanceState extends State<DragDistance> {
   }
 
   void _handleUpdate(DragUpdateDetails details) {
-    double dx = details.globalPosition.dx - initX;
-    double dy = details.globalPosition.dy - initY;
+    final double dx = details.globalPosition.dx - initX;
+    final double dy = details.globalPosition.dy - initY;
     initX = details.globalPosition.dx;
     initY = details.globalPosition.dy;
 

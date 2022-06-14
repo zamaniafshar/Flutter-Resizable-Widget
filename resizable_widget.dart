@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'resizable_widget_controller.dart';
+
 import 'drag_distance.dart';
+import 'resizable_widget_controller.dart';
 
 class ResizableWidget extends StatelessWidget {
   const ResizableWidget({
-    Key? key,
+    super.key,
     required this.child,
     required this.controller,
     required this.dragWidget,
     required this.dragWidgetHeight,
     required this.dragWidgetWidth,
-  }) : super(key: key);
+  });
 
   final ResizableWidgetController controller;
   final Widget child;
@@ -47,72 +48,72 @@ class ResizableWidget extends StatelessWidget {
                     Align(
                       alignment: Alignment.topLeft,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onTopLeftDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // top center
                     Align(
                       alignment: Alignment.topCenter,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onTopCenterDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // top right
                     Align(
                       alignment: Alignment.topRight,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onTopRightDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // center left
                     Align(
                       alignment: Alignment.centerLeft,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onCenterLeftDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // center
                     Align(
                       alignment: Alignment.center,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onCenterDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // center right
                     Align(
                       alignment: Alignment.centerRight,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onCenterRightDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // bottom left
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onBottomLeftDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // bottom center
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onBottomCenterDrag,
+                        child: dragWidget,
                       ),
                     ),
                     // bottom right
                     Align(
                       alignment: Alignment.bottomRight,
                       child: DragDistance(
-                        child: dragWidget,
                         onDrag: controller.onBottomRightDrag,
+                        child: dragWidget,
                       ),
                     ),
                   ],
