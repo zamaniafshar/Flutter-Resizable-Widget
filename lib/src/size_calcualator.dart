@@ -61,16 +61,16 @@ class SizeCalculator {
     calculateWidgetSize(bottom: bottom, left: left, right: right, top: top);
   }
 
-  bool checkTopBotMaxSize(final double newTop, final double newBottom) =>
+  bool checkTopBotMaxSize(double newTop, double newBottom) =>
       (newTop >= 0 && newBottom >= 0) && (height >= _size.minHeight);
-  bool checkLeftRightMaxSize(final double newLeft, final double newRight) =>
+  bool checkLeftRightMaxSize(double newLeft, double newRight) =>
       (newLeft >= 0 && newRight >= 0) && (width >= _size.minWidth);
 
   void calculateWidgetSize({
-    required final double top,
-    required final double left,
-    required final double bottom,
-    required final double right,
+    required double top,
+    required double left,
+    required double bottom,
+    required double right,
   }) {
     width = _size.areaWidth - (left + right);
     height = _size.areaHeight - (top + bottom);
