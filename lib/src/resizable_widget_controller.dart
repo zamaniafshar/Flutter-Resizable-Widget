@@ -1,102 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:resizable_widget/src/final_size.dart';
+import 'package:resizable_widget/src/size_calcualator.dart';
 
-class ResizableWidgetController extends ValueNotifier {
+class ResizableWidgetController extends ValueNotifier with SizeCalculator {
   ResizableWidgetController({
-    required this.initialPosition,
-    required this.areaHeight,
-    required this.areaWidth,
-    required this.height,
-    required this.width,
-    this.minWidth = 0.0,
-    this.minHeight = 0.0,
+    required FinalSize finalSize,
     this.showDragWidgets = true,
   }) : super(null) {
-    init();
+    initFields(finalSize);
   }
-
-  void init() {
-    final double newTop = initialPosition.dy - height / 2;
-    final double newBottom = areaHeight - height - newTop;
-    final double newLeft = initialPosition.dx - (width / 2);
-    final double newRight = (areaWidth - width) - newLeft;
-
-    // init top&bottom
-    if (newTop < 0) {
-      bottom = newBottom + newTop;
-    } else if (newBottom < 0) {
-      top = newTop + newBottom;
-    } else {
-      bottom = newBottom;
-      top = newTop;
-    }
-    // init left&right
-    if (newLeft < 0) {
-      right = newRight + newLeft;
-    } else if (newRight < 0) {
-      left = newLeft + newRight;
-    } else {
-      right = newRight;
-      left = newLeft;
-    }
-  }
-
-  final Offset initialPosition;
-  final double areaHeight;
-  final double areaWidth;
-  final double minWidth;
-  final double minHeight;
-
-  double height;
-  double width;
-  double top = 0.0;
-  double left = 0.0;
-  double bottom = 0.0;
-  double right = 0.0;
 
   bool showDragWidgets;
+
+  @override
+  void setSize({double? newTop, double? newLeft, double? newRight, double? newBottom}) {
+    super.setSize(newBottom: newBottom, newTop: newTop, newLeft: newLeft, newRight: newRight);
+    notifyListeners();
+  }
 
   void toggleShowDragWidgets() {
     showDragWidgets = !showDragWidgets;
     notifyListeners();
-  }
-
-  void setSize({
-    double? newTop,
-    double? newLeft,
-    double? newRight,
-    double? newBottom,
-  }) {
-    newTop = newTop ?? top;
-    newLeft = newLeft ?? left;
-    newRight = newRight ?? right;
-    newBottom = newBottom ?? bottom;
-    calculateWidgetSize(
-        top: newTop, left: newLeft, bottom: newBottom, right: newRight);
-    if (checkTopBotMaxSize(newTop, newBottom)) {
-      top = newTop;
-      bottom = newBottom;
-    }
-    if (checkLeftRightMaxSize(newLeft, newRight)) {
-      left = newLeft;
-      right = newRight;
-    }
-    calculateWidgetSize(bottom: bottom, left: left, right: right, top: top);
-    notifyListeners();
-  }
-
-  bool checkTopBotMaxSize(final double newTop, final double newBottom) =>
-      (newTop >= 0 && newBottom >= 0) && (height >= minHeight);
-  bool checkLeftRightMaxSize(final double newLeft, final double newRight) =>
-      (newLeft >= 0 && newRight >= 0) && (width >= minWidth);
-
-  void calculateWidgetSize({
-    required final double top,
-    required final double left,
-    required final double bottom,
-    required final double right,
-  }) {
-    width = areaWidth - (left + right);
-    height = areaHeight - (top + bottom);
   }
 
   void onTopLeftDrag(double dx, double dy) {
