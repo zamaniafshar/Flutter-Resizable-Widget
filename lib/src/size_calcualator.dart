@@ -1,10 +1,10 @@
-import 'size.dart';
+import 'final_size.dart';
 
 class SizeCalculator {
   SizeCalculator(this._size) {
     initFields();
   }
-  final Size _size;
+  final FinalSize _size;
 
   late double height;
   late double width;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Size {
-  Size({
+class FinalSize {
+  FinalSize({
     required this.areaHeight,
     required this.areaWidth,
     this.minWidth = 0.0,
@@ -11,7 +11,7 @@ class Size {
     double? width,
   })  : height = height ?? areaHeight,
         width = width ?? areaWidth {
-    initialPosition = initialPosition ?? Offset(width! / 2, height! / 2);
+    this.initialPosition = initialPosition ?? Offset(this.width / 2, this.height / 2);
   }
 
   final double areaHeight;
@@ -20,5 +20,5 @@ class Size {
   final double width;
   final double minWidth;
   final double minHeight;
-  late Offset initialPosition;
+  late final Offset initialPosition;
 }
