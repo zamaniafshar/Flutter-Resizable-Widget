@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drag_details_types.dart';
 
 class DragDistance extends StatefulWidget {
   const DragDistance({
@@ -7,7 +8,7 @@ class DragDistance extends StatefulWidget {
     required this.child,
   });
 
-  final Function(double dx, double dy) onDrag;
+  final DragDetails onDrag;
   final Widget child;
 
   @override
