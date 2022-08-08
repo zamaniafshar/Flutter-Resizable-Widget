@@ -3,8 +3,8 @@ import 'package:resizable_widget/src/final_size.dart';
 import 'package:resizable_widget/src/size_calcualator.dart';
 
 class ResizableWidgetController extends ValueNotifier with SizeCalculator {
-  ResizableWidgetController({
-    required FinalSize finalSize,
+  ResizableWidgetController(
+    FinalSize finalSize, {
     this.showDragWidgets = true,
   }) : super(null) {
     initFields(finalSize);
