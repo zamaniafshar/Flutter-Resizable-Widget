@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/drag_distance.dart';
 import 'package:resizable_widget/src/resizable_widget_controller.dart';
 
-import 'on_drag_types.dart';
+import 'drag_details_types.dart';
 
 class DragWidget extends StatelessWidget {
   final Widget child;
   final double height;
   final double width;
-  final DragDetailsType onDragType;
+  final DragDetailsTypes onDragType;
   late final Alignment? alignment;
   late final DragDetails onDrag;
 
