@@ -3,7 +3,7 @@ import 'package:resizable_widget/src/resizable_widget_controller.dart';
 
 typedef DragDetails = void Function(double dx, double dy);
 
-enum DragDetailsType {
+enum DragDetailsTypes {
   topLeft(Alignment.topLeft),
   topCenter(Alignment.topCenter),
   topRight(Alignment.topRight),
@@ -14,9 +14,9 @@ enum DragDetailsType {
   bottomCenter(Alignment.bottomCenter),
   bottomRight(Alignment.bottomRight);
 
-  const DragDetailsType(this.alignment);
+  const DragDetailsTypes(this.alignment);
   final Alignment alignment;
-  static const List<DragDetailsType> types = [
+  static const List<DragDetailsTypes> types = [
     topLeft,
     topCenter,
     topRight,
