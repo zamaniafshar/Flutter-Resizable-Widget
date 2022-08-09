@@ -4,15 +4,12 @@ class FinalSize {
   FinalSize({
     required this.areaHeight,
     required this.areaWidth,
-    this.minWidth = 0.0,
-    this.minHeight = 0.0,
-    Offset? initialPosition,
-    double? height,
-    double? width,
-  })  : height = height ?? areaHeight,
-        width = width ?? areaWidth {
-    this.initialPosition = initialPosition ?? Offset(this.width / 2, this.height / 2);
-  }
+    required this.height,
+    required this.width,
+    required this.minWidth,
+    required this.minHeight,
+    required this.initialPosition,
+  });
 
   final double areaHeight;
   final double areaWidth;
@@ -20,5 +17,5 @@ class FinalSize {
   final double width;
   final double minWidth;
   final double minHeight;
-  late final Offset initialPosition;
+  final Offset initialPosition;
 }
