@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/resizable_widget_controller.dart';
 import 'package:resizable_widget/src/resizable_widget.dart';
+import 'package:resizable_widget/src/final_size.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,13 +32,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final controller = ResizableWidgetController(
-      initialPosition: Offset(areaWidth / 2, areaHeight / 2),
-      areaHeight: areaHeight,
-      areaWidth: areaWidth,
-      height: areaHeight / 2,
-      width: areaWidth / 2,
-      minWidth: 50,
-      minHeight: 50,
+      FinalSize(
+        initialPosition: Offset(areaWidth / 2, areaHeight / 2),
+        areaHeight: areaHeight,
+        areaWidth: areaWidth,
+        height: areaHeight / 2,
+        width: areaWidth / 2,
+        minWidth: 50,
+        minHeight: 50,
+      ),
     );
     return Scaffold(
       appBar: AppBar(
@@ -55,17 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.center,
               color: Colors.red,
               child: ResizableWidget(
-                dragWidgetHeight: 50,
-                dragWidgetWidth: 50,
+                
                 controller: controller,
-                dragWidget: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white24,
-                  ),
-                ),
+                dragWidgetsArea: Rect.,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
