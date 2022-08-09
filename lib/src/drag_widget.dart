@@ -5,11 +5,11 @@ import 'package:resizable_widget/src/resizable_widget_controller.dart';
 import 'drag_details_types.dart';
 
 class DragWidget extends StatelessWidget {
+  Alignment? alignment;
   final Widget child;
   final double height;
   final double width;
   final DragDetailsTypes onDragType;
-  late final Alignment? alignment;
   late final DragDetails onDrag;
 
   DragWidget({
