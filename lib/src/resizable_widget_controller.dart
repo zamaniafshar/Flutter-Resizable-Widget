@@ -3,14 +3,16 @@ import 'package:resizable_widget/src/final_size.dart';
 import 'package:resizable_widget/src/size_calcualator.dart';
 
 class ResizableWidgetController extends ValueNotifier with SizeCalculator {
-  ResizableWidgetController(
-    FinalSize finalSize, {
-    this.showDragWidgets = true,
-  }) : super(null) {
-    initFields(finalSize);
-  }
+  ResizableWidgetController() : super(null);
 
-  bool showDragWidgets;
+  late bool _showDragWidgets;
+
+  bool get showDragWidgets => _showDragWidgets;
+
+  void init({required FinalSize finalSize, bool? showDragWidgets}) {
+    initFields(finalSize);
+    _showDragWidgets = showDragWidgets ?? true;
+  }
 
   @override
   void setSize({double? newTop, double? newLeft, double? newRight, double? newBottom}) {
@@ -19,7 +21,7 @@ class ResizableWidgetController extends ValueNotifier with SizeCalculator {
   }
 
   void toggleShowDragWidgets() {
-    showDragWidgets = !showDragWidgets;
+    _showDragWidgets = !_showDragWidgets;
     notifyListeners();
   }
 
