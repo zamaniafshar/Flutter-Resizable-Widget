@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resizable_widget/src/resizable_widget_controller.dart';
-import 'package:resizable_widget/src/resizable_widget.dart';
-import 'package:resizable_widget/src/final_size.dart';
+import 'package:resizable_widget/resizable_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,17 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ResizableWidgetController(
-      FinalSize(
-        initialPosition: Offset(areaWidth / 2, areaHeight / 2),
-        areaHeight: areaHeight,
-        areaWidth: areaWidth,
-        height: areaHeight / 2,
-        width: areaWidth / 2,
-        minWidth: 50,
-        minHeight: 50,
-      ),
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Resizable Widget'),
@@ -58,9 +45,22 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.center,
               color: Colors.red,
               child: ResizableWidget(
-                
-                controller: controller,
-                dragWidgetsArea: Rect.,
+                dragWidgetsList: List.generate(
+                  9,
+                  (index) => DragWidget(
+                    child: Container(color: Colors.blue.withOpacity(0.4)),
+                    onDragType: DragDetailsTypes.types[index],
+                    height: 15,
+                    width: 15,
+                  ),
+                ),
+                areaHeight: areaHeight,
+                areaWidth: areaWidth,
+                height: areaHeight / 2,
+                width: areaWidth / 2,
+                minWidth: 50,
+                minHeight: 50,
+                dragWidgetsArea: Size(areaWidth + 15, areaHeight + 15),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
