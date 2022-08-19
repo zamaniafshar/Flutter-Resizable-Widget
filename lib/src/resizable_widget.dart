@@ -58,10 +58,10 @@ class ResizableWidget extends StatelessWidget {
               child: child,
             ),
             Positioned(
-              top: controller.top - dragWidgetsArea.height / 2,
-              left: controller.left - dragWidgetsArea.width / 2,
-              bottom: controller.bottom - dragWidgetsArea.height / 2,
-              right: controller.right - dragWidgetsArea.width / 2,
+              top: controller.top - dragWidgetsArea.height,
+              left: controller.left - dragWidgetsArea.width,
+              bottom: controller.bottom - dragWidgetsArea.height,
+              right: controller.right - dragWidgetsArea.width,
               child: Visibility(
                 visible: controller.showDragWidgets,
                 child: Stack(
