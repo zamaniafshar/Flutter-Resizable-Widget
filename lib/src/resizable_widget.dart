@@ -3,16 +3,16 @@ import 'package:resizable_widget/src/drag_widget.dart';
 import 'package:resizable_widget/src/final_size.dart';
 import 'resizable_widget_controller.dart';
 
-class ResizableWidget extends StatelessWidget {
+class ResizableWidget extends StatefulWidget {
   ResizableWidget({
     super.key,
-    ResizableWidgetController? controller,
-    bool? showDragWidgets,
     double? height,
     double? width,
     Offset? initialPosition,
     double minWidth = 0.0,
     double minHeight = 0.0,
+    this.showDragWidgets,
+    this.controller,
     required double areaHeight,
     required double areaWidth,
     required this.child,
@@ -21,8 +21,8 @@ class ResizableWidget extends StatelessWidget {
   }) {
     height ??= areaHeight;
     width ??= areaWidth;
-    initialPosition ??= Offset(width / 2, height / 2);
-    FinalSize finalSize = FinalSize(
+    initialPosition ??= Offset(areaWidth / 2, areaHeight / 2);
+    size = FinalSize(
       areaHeight: areaHeight,
       areaWidth: areaWidth,
       height: height,
@@ -31,20 +31,44 @@ class ResizableWidget extends StatelessWidget {
       minWidth: minWidth,
       initialPosition: initialPosition,
     );
-    this.controller = controller ?? ResizableWidgetController();
-    this.controller.init(finalSize: finalSize, showDragWidgets: showDragWidgets);
-    for (var element in dragWidgetsList) {
-      element.init(this.controller);
-    }
   }
 
-  late final ResizableWidgetController controller;
+  late final FinalSize size;
+  final ResizableWidgetController? controller;
+  final bool? showDragWidgets;
   final Widget child;
   final Size dragWidgetsArea;
   final List<DragWidget> dragWidgetsList;
 
   @override
+  State<ResizableWidget> createState() => _ResizableWidgetState();
+}
+
+class _ResizableWidgetState extends State<ResizableWidget> {
+  late final ResizableWidgetController controller;
+
+  @override
+  void initState() {
+    print('im init state');
+    controller = widget.controller ?? ResizableWidgetController();
+    controller.init(finalSize: widget.size, showDragWidgets: widget.showDragWidgets);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('im dispose');
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(widget.dragWidgetsList.length);
+    for (var element in widget.dragWidgetsList) {
+      print('call init');
+      element.init(controller);
+    }
     return ValueListenableBuilder(
       valueListenable: controller,
       builder: (_, __, ___) {
@@ -55,17 +79,17 @@ class ResizableWidget extends StatelessWidget {
               left: controller.left,
               bottom: controller.bottom,
               right: controller.right,
-              child: child,
+              child: widget.child,
             ),
             Positioned(
-              top: controller.top - dragWidgetsArea.height,
-              left: controller.left - dragWidgetsArea.width,
-              bottom: controller.bottom - dragWidgetsArea.height,
-              right: controller.right - dragWidgetsArea.width,
+              top: controller.top - widget.dragWidgetsArea.height,
+              left: controller.left - widget.dragWidgetsArea.width,
+              bottom: controller.bottom - widget.dragWidgetsArea.height,
+              right: controller.right - widget.dragWidgetsArea.width,
               child: Visibility(
                 visible: controller.showDragWidgets,
                 child: Stack(
-                  children: dragWidgetsList,
+                  children: widget.dragWidgetsList,
                 ),
               ),
             ),
