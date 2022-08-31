@@ -5,12 +5,12 @@ import 'package:resizable_widget/src/resizable_widget_controller.dart';
 import 'drag_details_types.dart';
 
 class DragWidget extends StatelessWidget {
-  Alignment? alignment;
+  final Alignment? alignment;
   final Widget child;
   final double height;
   final double width;
   final DragDetailsTypes onDragType;
-  late final DragDetails onDrag;
+  late DragDetails onDrag;
 
   DragWidget({
     Key? key,
@@ -19,17 +19,18 @@ class DragWidget extends StatelessWidget {
     required this.onDragType,
     required this.height,
     required this.width,
-  }) : super(key: key);
+  }) : super(key: key) {
+    print('new object');
+  }
 
   void init(ResizableWidgetController controller) {
     onDrag = onDragType.getOnDragFunction(controller);
-    alignment ??= onDragType.alignment;
   }
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: alignment!,
+      alignment: alignment ?? onDragType.alignment,
       child: SizedBox(
         width: width,
         height: height,
