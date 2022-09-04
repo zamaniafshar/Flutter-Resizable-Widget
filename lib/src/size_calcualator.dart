@@ -1,7 +1,7 @@
-import 'final_size.dart';
+import 'model/common_sizes.dart';
 
 class SizeCalculator {
-  late final FinalSize _size;
+  late final CommonSizes _size;
 
   late double height;
   late double width;
@@ -10,7 +10,7 @@ class SizeCalculator {
   late double bottom;
   late double right;
 
-  void initFields(FinalSize finalSize) {
+  void initFields(CommonSizes finalSize) {
     _size = finalSize;
     height = _size.height;
     width = _size.width;

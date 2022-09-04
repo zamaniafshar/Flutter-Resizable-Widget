@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FinalSize {
-  FinalSize({
+class CommonSizes {
+  CommonSizes({
     required this.areaHeight,
     required this.areaWidth,
     required this.height,

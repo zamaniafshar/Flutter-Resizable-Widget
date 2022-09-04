@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:resizable_widget/src/drag_widget.dart';
-import 'package:resizable_widget/src/final_size.dart';
+import 'package:resizable_widget/src/model/common_sizes.dart';
+import 'package:resizable_widget/src/model/trigger.dart';
+import '../resizable_widget.dart';
 import 'resizable_widget_controller.dart';
 
 class ResizableWidget extends StatefulWidget {
@@ -17,12 +18,12 @@ class ResizableWidget extends StatefulWidget {
     required double areaWidth,
     required this.child,
     required this.dragWidgetsArea,
-    required this.dragWidgetsList,
+    required this.triggersList,
   }) {
     height ??= areaHeight;
     width ??= areaWidth;
     initialPosition ??= Offset(areaWidth / 2, areaHeight / 2);
-    size = FinalSize(
+    size = CommonSizes(
       areaHeight: areaHeight,
       areaWidth: areaWidth,
       height: height,
@@ -33,12 +34,12 @@ class ResizableWidget extends StatefulWidget {
     );
   }
 
-  late final FinalSize size;
+  late final CommonSizes size;
   final ResizableWidgetController? controller;
   final bool? showDragWidgets;
   final Widget child;
   final Size dragWidgetsArea;
-  final List<DragWidget> dragWidgetsList;
+  final List<Trigger> triggersList;
 
   @override
   State<ResizableWidget> createState() => _ResizableWidgetState();
@@ -49,7 +50,6 @@ class _ResizableWidgetState extends State<ResizableWidget> {
 
   @override
   void initState() {
-    print('im init state');
     controller = widget.controller ?? ResizableWidgetController();
     controller.init(finalSize: widget.size, showDragWidgets: widget.showDragWidgets);
     super.initState();
@@ -57,18 +57,12 @@ class _ResizableWidgetState extends State<ResizableWidget> {
 
   @override
   void dispose() {
-    print('im dispose');
     controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.dragWidgetsList.length);
-    for (var element in widget.dragWidgetsList) {
-      print('call init');
-      element.init(controller);
-    }
     return ValueListenableBuilder(
       valueListenable: controller,
       builder: (_, __, ___) {
@@ -89,7 +83,9 @@ class _ResizableWidgetState extends State<ResizableWidget> {
               child: Visibility(
                 visible: controller.showDragWidgets,
                 child: Stack(
-                  children: widget.dragWidgetsList,
+                  children: widget.triggersList.map((trigger) {
+                    return TriggerWidget(onDrag: trigger.onDragType.getOnDragFunction(controller), trigger: trigger);
+                  }).toList(),
                 ),
               ),
             ),
