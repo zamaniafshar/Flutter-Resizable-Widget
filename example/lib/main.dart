@@ -65,13 +65,15 @@ class FirstExample extends StatelessWidget {
                 minWidth: 50,
                 minHeight: 50,
                 dragWidgetsArea: const Size(15, 15),
-                dragWidgetsList: List.generate(
+                triggersList: List.generate(
                   9,
-                  (index) => DragWidget(
-                    onDragType: DragDetailsTypes.types[index],
+                  (index) => Trigger(
                     height: 30,
                     width: 30,
-                    child: Container(color: Colors.blue.withOpacity(0.4)),
+                    onDragType: DragTriggersEnum.topLeft,
+                    child: Container(
+                      color: Colors.blue.withOpacity(0.4),
+                    ),
                   ),
                 ),
                 child: Container(
@@ -82,7 +84,8 @@ class FirstExample extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => SecondScreen()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => SecondScreen()));
                     },
                     child: Text('go to next screen'),
                   ),
@@ -140,16 +143,16 @@ class SecondExample extends StatelessWidget {
                 minWidth: 50,
                 minHeight: 50,
                 dragWidgetsArea: const Size(15, 15),
-                dragWidgetsList: [
-                  DragWidget(
-                    height: 30,
-                    width: 30,
-                    onDragType: DragDetailsTypes.topLeft,
-                    child: Container(
-                      color: Colors.blue.withOpacity(0.4),
-                    ),
-                  ),
-                ],
+                triggersList: List.generate(
+                    9,
+                    (index) => Trigger(
+                          height: 30,
+                          width: 30,
+                          onDragType: DragTriggersEnum.topLeft,
+                          child: Container(
+                            color: Colors.blue.withOpacity(0.4),
+                          ),
+                        )),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(

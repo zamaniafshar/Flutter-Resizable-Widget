@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/resizable_widget_controller.dart';
 
-typedef DragDetails = void Function(double dx, double dy);
+typedef DragDetailsCallback = void Function(double dx, double dy);
 
-enum DragDetailsTypes {
+enum DragTriggersEnum {
   topLeft(Alignment.topLeft),
   topCenter(Alignment.topCenter),
   topRight(Alignment.topRight),
@@ -14,21 +14,10 @@ enum DragDetailsTypes {
   bottomCenter(Alignment.bottomCenter),
   bottomRight(Alignment.bottomRight);
 
-  const DragDetailsTypes(this.alignment);
+  const DragTriggersEnum(this.alignment);
   final Alignment alignment;
-  static const List<DragDetailsTypes> types = [
-    topLeft,
-    topCenter,
-    topRight,
-    centerLeft,
-    center,
-    centerRight,
-    bottomLeft,
-    bottomCenter,
-    bottomRight,
-  ];
 
-  DragDetails getOnDragFunction(ResizableWidgetController controller) {
+  DragDetailsCallback getOnDragFunction(ResizableWidgetController controller) {
     switch (this) {
       case topLeft:
         return controller.onTopLeftDrag;
@@ -48,6 +37,8 @@ enum DragDetailsTypes {
         return controller.onBottomCenterDrag;
       case bottomRight:
         return controller.onBottomRightDrag;
+      default:
+        return controller.onCenterDrag;
     }
   }
 }
