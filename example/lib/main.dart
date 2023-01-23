@@ -62,15 +62,15 @@ class FirstExample extends StatelessWidget {
                 areaWidth: areaWidth,
                 height: areaHeight / 2,
                 width: areaWidth / 2,
-                minWidth: 50,
-                minHeight: 50,
+                // minWidth: 50,
+                // minHeight: 50,
                 dragWidgetsArea: const Size(15, 15),
                 triggersList: List.generate(
                   9,
                   (index) => Trigger(
                     height: 30,
                     width: 30,
-                    onDragType: DragTriggersEnum.topLeft,
+                    onDragType: DragTriggersEnum.values[index],
                     child: Container(
                       color: Colors.blue.withOpacity(0.4),
                     ),
@@ -82,13 +82,7 @@ class FirstExample extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => SecondScreen()));
-                    },
-                    child: Text('go to next screen'),
-                  ),
+                  child: Center(child: Text('go to next screen')),
                 ),
               ),
             ),
