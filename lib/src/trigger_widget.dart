@@ -5,7 +5,6 @@ import 'package:resizable_widget/src/resizable_widget_controller.dart';
 import 'drag_triggers_enum.dart';
 
 class TriggerWidget extends StatefulWidget {
-
   late DragDetailsCallback onDrag;
   late Trigger trigger;
 
@@ -21,8 +20,7 @@ class TriggerWidget extends StatefulWidget {
   }
 }
 
-class _TriggerWidgetState extends State<TriggerWidget>{
-
+class _TriggerWidgetState extends State<TriggerWidget> {
   double initX = 0;
   double initY = 0;
 
@@ -39,7 +37,6 @@ class _TriggerWidgetState extends State<TriggerWidget>{
 
     widget.onDrag(dx, dy);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,5 +55,3 @@ class _TriggerWidgetState extends State<TriggerWidget>{
     );
   }
 }
-
-
