@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/model/common_sizes.dart';
 import 'package:resizable_widget/src/size_calcualator.dart';
 
-class ResizableWidgetController extends ValueNotifier with SizeCalculator {
-  ResizableWidgetController() : super(null);
-
+class ResizableWidgetController extends SizeCalculator with ChangeNotifier {
   late bool _showDragWidgets;
-
   bool get showDragWidgets => _showDragWidgets;
 
   void init({required CommonSizes finalSize, bool? showDragWidgets}) {
-    initFields(finalSize);
+    super.initFields(finalSize);
     _showDragWidgets = showDragWidgets ?? true;
   }
 

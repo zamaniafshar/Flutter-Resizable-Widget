@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/model/common_sizes.dart';
 import 'package:resizable_widget/src/model/trigger.dart';
-import '../resizable_widget.dart';
 import 'resizable_widget_controller.dart';
+import 'trigger_widget.dart';
 
 class ResizableWidget extends StatefulWidget {
   ResizableWidget({
@@ -13,7 +13,6 @@ class ResizableWidget extends StatefulWidget {
     double minWidth = 0.0,
     double minHeight = 0.0,
     this.showDragWidgets,
-    this.controller,
     required double areaHeight,
     required double areaWidth,
     required this.child,
@@ -35,7 +34,6 @@ class ResizableWidget extends StatefulWidget {
   }
 
   late final CommonSizes size;
-  final ResizableWidgetController? controller;
   final bool? showDragWidgets;
   final Widget child;
   final Size dragWidgetsArea;
@@ -50,7 +48,7 @@ class _ResizableWidgetState extends State<ResizableWidget> {
 
   @override
   void initState() {
-    controller = widget.controller ?? ResizableWidgetController();
+    controller = ResizableWidgetController();
     controller.init(finalSize: widget.size, showDragWidgets: widget.showDragWidgets);
     super.initState();
   }
@@ -63,9 +61,17 @@ class _ResizableWidgetState extends State<ResizableWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: controller,
-      builder: (_, __, ___) {
+    return AnimatedBuilder(
+      animation: controller,
+      child: Stack(
+        children: widget.triggersList.map((trigger) {
+          return TriggerWidget(
+            onDrag: trigger.onDragType.getOnDragFunction(controller),
+            trigger: trigger,
+          );
+        }).toList(),
+      ),
+      builder: (_, triggersStack) {
         return Stack(
           children: <Widget>[
             Positioned(
@@ -82,11 +88,7 @@ class _ResizableWidgetState extends State<ResizableWidget> {
               right: controller.right - widget.dragWidgetsArea.width,
               child: Visibility(
                 visible: controller.showDragWidgets,
-                child: Stack(
-                  children: widget.triggersList.map((trigger) {
-                    return TriggerWidget(onDrag: trigger.onDragType.getOnDragFunction(controller), trigger: trigger);
-                  }).toList(),
-                ),
+                child: triggersStack!,
               ),
             ),
           ],
