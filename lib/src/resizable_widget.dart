@@ -64,12 +64,14 @@ class _ResizableWidgetState extends State<ResizableWidget> {
     return AnimatedBuilder(
       animation: controller,
       child: Stack(
-        children: widget.triggersList.map((trigger) {
-          return TriggerWidget(
-            onDrag: trigger.onDragType.getOnDragFunction(controller),
-            trigger: trigger,
-          );
-        }).toList(),
+        children: widget.triggersList.map(
+          (trigger) {
+            return TriggerWidget(
+              onDrag: trigger.dragTriggerType.getOnDragFunction(controller),
+              trigger: trigger,
+            );
+          },
+        ).toList(),
       ),
       builder: (_, triggersStack) {
         return Stack(
