@@ -66,7 +66,7 @@ class _ResizableWidgetState extends State<ResizableWidget> {
       child: Stack(
         children: widget.triggersList.map((trigger) {
           return TriggerWidget(
-            onDrag: trigger.onDragType.getOnDragFunction(controller),
+            onDrag: trigger.dragTriggerType.getOnDragFunction(controller),
             trigger: trigger,
           );
         }).toList(),

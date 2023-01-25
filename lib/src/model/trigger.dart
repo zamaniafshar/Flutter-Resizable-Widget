@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
 class Trigger {
-  Alignment? alignment;
+  late final Alignment alignment;
   final Widget child;
   final double? height;
   final double? width;
-  final DragTriggersEnum onDragType;
+  final DragTriggersEnum dragTriggerType;
 
-  Trigger(
-      {this.alignment,
-      this.height,
-      this.width,
-      required this.child,
-      required this.onDragType}) {
-    alignment ??= onDragType.alignment;
+  Trigger({
+    Alignment? alignment,
+    this.height,
+    this.width,
+    required this.child,
+    required this.dragTriggerType,
+  }) {
+    alignment ??= dragTriggerType.alignment;
   }
 }
