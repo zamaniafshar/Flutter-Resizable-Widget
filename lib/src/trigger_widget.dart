@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/src/model/trigger.dart';
+import 'package:resizable_widget/src/resizable_widget_controller.dart';
+
 import 'drag_triggers_enum.dart';
 
 class TriggerWidget extends StatefulWidget {
-  final DragDetailsCallback onDrag;
-  final Trigger trigger;
+  late DragDetailsCallback onDrag;
+  late Trigger trigger;
 
-  const TriggerWidget({
+  TriggerWidget({
     Key? key,
     required this.onDrag,
     required this.trigger,
@@ -39,7 +41,7 @@ class _TriggerWidgetState extends State<TriggerWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: widget.trigger.alignment,
+      alignment: widget.trigger.alignment ?? widget.trigger.onDragType.alignment,
       child: SizedBox(
         width: widget.trigger.width,
         height: widget.trigger.height,

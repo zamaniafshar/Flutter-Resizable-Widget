@@ -70,7 +70,7 @@ class FirstExample extends StatelessWidget {
                   (index) => Trigger(
                     height: 30,
                     width: 30,
-                    onDragType: DragTriggersEnum.values[index],
+                    dragTriggerType: DragTriggersEnum.values[index],
                     child: Container(
                       color: Colors.blue.withOpacity(0.4),
                     ),
@@ -142,7 +142,7 @@ class SecondExample extends StatelessWidget {
                     (index) => Trigger(
                           height: 30,
                           width: 30,
-                          onDragType: DragTriggersEnum.topLeft,
+                          dragTriggerType: DragTriggersEnum.topLeft,
                           child: Container(
                             color: Colors.blue.withOpacity(0.4),
                           ),
