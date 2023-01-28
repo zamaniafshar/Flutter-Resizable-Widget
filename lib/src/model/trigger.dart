@@ -15,6 +15,6 @@ class Trigger {
     required this.child,
     required this.dragTriggerType,
   }) {
-    alignment ??= dragTriggerType.alignment;
+    this.alignment = alignment ?? dragTriggerType.alignment;
   }
 }
