@@ -1,39 +1,116 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## ℹ️ About
+#### A Flutter widget that allow user to resize or move it's child in the screen by dragging.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## Preview
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+https://user-images.githubusercontent.com/88077166/215252550-b57330ef-b9d9-49c6-8642-f53cac1d4359.mp4
 
-## Features
+## Sample
+``` dart
+Scaffold(
+      appBar: AppBar(
+        title: const Text('First Example'),
+        centerTitle: true,
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraint) {
+          double areaHeight = constraint.maxHeight * 0.8;
+          double areaWidth = constraint.maxWidth * 0.8;
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+          return Container(
+            width: constraint.maxWidth,
+            height: constraint.maxHeight,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.lightBlue.shade200,
+                  Colors.blue.shade700,
+                ],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10),
+                const Text(
+                  'Widget Area',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: constraint.maxHeight * 0.8,
+                  width: constraint.maxWidth * 0.8,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2,
+                    ),
+                  ),
+                  child: ResizableWidget(
+                    areaHeight: areaHeight,
+                    areaWidth: areaWidth,
+                    height: 250,
+                    width: 250,
+                    minHeight: 100,
+                    minWidth: 100,
+                    dragWidgetsArea: const Size.square(30 / 2),
+                    triggersList: DragTriggersEnum.values
+                        .map(
+                          (e) => Trigger(
+                            dragTriggerType: e,
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                color: Colors.white38,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                              3,
+                              (index) => const Divider(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                              3,
+                              (index) => const VerticalDivider(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+    ```
