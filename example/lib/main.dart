@@ -11,26 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Resizable Widget'),
-      ),
-      body: FirstExample(),
+      home: FirstExample(),
     );
   }
 }
@@ -42,123 +23,110 @@ class FirstExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraint) {
-        double areaHeight = constraint.maxHeight * 0.8;
-        double areaWidth = constraint.maxWidth * 0.8;
-
-        return Container(
-          width: constraint.maxWidth,
-          height: constraint.maxHeight,
-          color: Colors.black,
-          child: UnconstrainedBox(
-            child: Container(
-              width: areaWidth,
-              height: areaHeight,
-              alignment: Alignment.center,
-              color: Colors.red,
-              child: ResizableWidget(
-                areaHeight: areaHeight,
-                areaWidth: areaWidth,
-                height: areaHeight / 2,
-                width: areaWidth / 2,
-                // minWidth: 50,
-                // minHeight: 50,
-                dragWidgetsArea: const Size(15, 15),
-                triggersList: List.generate(
-                  9,
-                  (index) => Trigger(
-                    height: 30,
-                    width: 30,
-                    dragTriggerType: DragTriggersEnum.values[index],
-                    child: Container(
-                      color: Colors.blue.withOpacity(0.4),
-                    ),
-                  ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white,
-                    ),
-                  ),
-                  child: Center(child: Text('go to next screen')),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text('second screen'),
+      appBar: AppBar(
+        title: const Text('First Example'),
+        centerTitle: true,
       ),
-    );
-  }
-}
+      body: LayoutBuilder(
+        builder: (context, constraint) {
+          double areaHeight = constraint.maxHeight * 0.8;
+          double areaWidth = constraint.maxWidth * 0.8;
 
-class SecondExample extends StatelessWidget {
-  const SecondExample({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraint) {
-        double areaHeight = constraint.maxHeight * 0.8;
-        double areaWidth = constraint.maxWidth * 0.8;
-
-        return Container(
-          width: constraint.maxWidth,
-          height: constraint.maxHeight,
-          color: Colors.black,
-          child: UnconstrainedBox(
-            child: Container(
-              width: areaWidth,
-              height: areaHeight,
-              alignment: Alignment.center,
-              color: Colors.red,
-              child: ResizableWidget(
-                areaHeight: areaHeight,
-                areaWidth: areaWidth,
-                height: areaHeight / 2,
-                width: areaWidth / 2,
-                minWidth: 50,
-                minHeight: 50,
-                dragWidgetsArea: const Size(15, 15),
-                triggersList: List.generate(
-                    9,
-                    (index) => Trigger(
-                          height: 30,
-                          width: 30,
-                          dragTriggerType: DragTriggersEnum.topLeft,
-                          child: Container(
-                            color: Colors.blue.withOpacity(0.4),
-                          ),
-                        )),
-                child: Container(
+          return Container(
+            width: constraint.maxWidth,
+            height: constraint.maxHeight,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.lightBlue.shade200,
+                  Colors.blue.shade700,
+                ],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10),
+                const Text(
+                  'Widget Area',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: constraint.maxHeight * 0.8,
+                  width: constraint.maxWidth * 0.8,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.white,
+                      width: 2,
+                    ),
+                  ),
+                  child: ResizableWidget(
+                    areaHeight: areaHeight,
+                    areaWidth: areaWidth,
+                    height: 250,
+                    width: 250,
+                    minHeight: 100,
+                    minWidth: 100,
+                    dragWidgetsArea: const Size.square(30 / 2),
+                    triggersList: DragTriggersEnum.values
+                        .map(
+                          (e) => Trigger(
+                            dragTriggerType: e,
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                color: Colors.white38,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                              3,
+                              (index) => const Divider(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                              3,
+                              (index) => const VerticalDivider(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
